@@ -9,7 +9,7 @@ def alg1(s0, T, dt, u, d, p, reps=1):
     markers = [".-", "--", "d-", "o-", "*-", "+-", "P-", "s-", "D-", "v-", "<-", "v-", "-", ">-"]
     colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k']
     # colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k', "lime", "fuchsia", "gold", "teal", "navy"]
-    available_markers = list(itertools.product(markers, colors))
+    available_markers = list(itertools.product(markers*30, colors*30))
     random.shuffle(available_markers)
     final_values = []
     for i in range(reps):
@@ -38,6 +38,44 @@ def alg1(s0, T, dt, u, d, p, reps=1):
     plt.show()
 
     return final_values
+
+
+def alg2(s0, T, dt, u, d, p, reps=1):
+    final_values = []
+    for i in range(reps):
+        x = np.arange(0, T + dt, dt)   # time
+        y = [s0]  # stock price
+        s = s0
+        t = 0
+        while t < T:
+            t += dt
+            if random.random() < p:
+                s *= u
+            else:
+                s *= d
+            y.append(s)
+        final_values.append(y.pop())
+
+    return final_values
+
+
+def alg3(s0, T, dt, u, d, p, reps=1):
+    final_values = []
+    for i in range(reps):
+        x = np.arange(0, T + dt, dt)   # time
+        y = [s0]  # stock price
+        s = s0
+        t = 0
+        while t < T:
+            t += dt
+            if random.random() < p:
+                s *= u
+            else:
+                s *= d
+            y.append(s)
+        final_values.append((y.pop()-s0)/s0)
+
+    return sum(x**2 for x in final_values)/len(final_values)
 
 
 
