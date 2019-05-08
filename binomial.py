@@ -75,7 +75,7 @@ def alg3(s0, T, dt, u, d, p, reps=1):
             y.append(s)
         final_values.append((y.pop()-s0)/s0)
 
-    return sum(x**2 for x in final_values)/len(final_values)
+    return sum(abs(x) for x in final_values)/len(final_values)
 
 
 
